@@ -2,24 +2,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Select Your Barber</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Choose Your Barber</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <h2>Choose Your Barber</h2>
-  <div class="barber-list">
-    <div class="barber" onclick="selectBarber()">
-      <img src="https://via.placeholder.com/150x150.png?text=Barber" alt="Barber 1"/><p>Barber 1</p>
-    </div>
-    <div class="barber" onclick="selectBarber()">
-      <img src="https://via.placeholder.com/150x150.png?text=Barber" alt="Barber 2"/><p>Barber 2</p>
-    </div>
-    <div class="barber" onclick="selectBarber()">
-      <img src="https://via.placeholder.com/150x150.png?text=Barber" alt="Barber 3"/><p>Barber 3</p>
-    </div>
-    <div class="barber" onclick="selectBarber()">
-      <img src="https://via.placeholder.com/150x150.png?text=Barber" alt="Barber 4"/><p>Barber 4</p>
+  <div class="overlay"></div>
+  <div class="content">
+    <h2>Choose Your Barber</h2>
+    <div class="barber-list">
+      <div class="barber" onclick="selectBarber()"><img src="https://via.placeholder.com/150" /><p>Barber 1</p></div>
+      <div class="barber" onclick="selectBarber()"><img src="https://via.placeholder.com/150" /><p>Barber 2</p></div>
+      <div class="barber" onclick="selectBarber()"><img src="https://via.placeholder.com/150" /><p>Barber 3</p></div>
+      <div class="barber" onclick="selectBarber()"><img src="https://via.placeholder.com/150" /><p>Barber 4</p></div>
     </div>
   </div>
   <script>
