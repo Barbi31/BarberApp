@@ -2,20 +2,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>District45 - Choose Barber</title>
+  <meta charset="UTF-8">
+  <title>Select Your Barber</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="main-content">
-    <h2>Select your Barber</h2>
-    <ul>
-      <li onclick="selectBarber()">Barber 1</li>
-      <li onclick="selectBarber()">Barber 2</li>
-      <li onclick="selectBarber()">Barber 3</li>
-      <li onclick="selectBarber()">Barber 4</li>
-    </ul>
+  <h2>Choose Your Barber</h2>
+  <div class="barber-list">
+    <div class="barber" onclick="selectBarber()">
+      <img src="https://via.placeholder.com/150x150.png?text=Barber" alt="Barber 1"/><p>Barber 1</p>
+    </div>
+    <div class="barber" onclick="selectBarber()">
+      <img src="https://via.placeholder.com/150x150.png?text=Barber" alt="Barber 2"/><p>Barber 2</p>
+    </div>
+    <div class="barber" onclick="selectBarber()">
+      <img src="https://via.placeholder.com/150x150.png?text=Barber" alt="Barber 3"/><p>Barber 3</p>
+    </div>
+    <div class="barber" onclick="selectBarber()">
+      <img src="https://via.placeholder.com/150x150.png?text=Barber" alt="Barber 4"/><p>Barber 4</p>
+    </div>
   </div>
   <script>
     function selectBarber() {
