@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>District45 Login</title>
+</head>
+<body>
+  <h2>Login to District45</h2>
+  <input type="email" id="email" placeholder="Email"><br>
+  <input type="password" id="password" placeholder="Password"><br>
+  <button onclick="login()">Log In</button>
+  <p id="error" style="color:red;"></p>
+
+  <script type="module">
+    import { auth, signInWithEmailAndPassword } from './firebase-config.js';
+
+    const login = () => {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      signInWithEmailAndPassword(auth, email, password)
+        .then(userCredential => {
+          // Successful login
+          window.location.href = 'book.html';
+        })
+        .catch(error => {
+          document.getElementById('error').innerText = error.message;
+        });
+    };
+    window.login = login;
+  </script>
+</body>
+</html>
