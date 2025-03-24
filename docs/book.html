@@ -3,10 +3,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>District45 - Book</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book Now</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <h1>Welcome to the booking page</h1>
-  <p>This is where the booking calendar will be.</p>
+  <div class="overlay"></div>
+  <div class="content center">
+    <img src="logo.png" alt="District45 Logo" class="logo" />
+    <button onclick="goToBarbers()">Book Now</button>
+  </div>
+  <script>
+    function goToBarbers() {
+      window.location.href = 'barbers.html';
+    }
+  </script>
 </body>
 </html>
