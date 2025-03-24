@@ -2,21 +2,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Services</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <title>Select Service</title>
 </head>
 <body>
-  <div class="overlay"></div>
-  <div class="content">
-    <h2>Select a Service</h2>
-    <ul class="service-list">
-      <li><span>Regular Haircut + Beard</span><span>100 RON</span></li>
-      <li><span>Regular Haircut</span><span>70 RON</span></li>
-      <li><span>Beard Trim</span><span>50 RON</span></li>
-      <li><span>Emergency Cut</span><span>150 RON</span></li>
-    </ul>
-  </div>
+  <h2>Select a Service</h2>
+  <select id="service">
+    <option value="Regular Haircut + Beard">Regular Haircut + Beard - 80 RON</option>
+    <option value="Regular Haircut">Regular Haircut - 70 RON</option>
+    <option value="Beard Trim">Beard Trim - 40 RON</option>
+    <option value="Emergency Cut">Emergency Cut - 120 RON</option>
+  </select><br><br>
+  <button onclick="saveService()">Continue</button>
+
+  <script>
+    function saveService() {
+      const service = document.getElementById('service').value;
+      localStorage.setItem('selectedService', service);
+      window.location.href = 'calendar.html';
+    }
+  </script>
 </body>
 </html>
