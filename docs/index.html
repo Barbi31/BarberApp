@@ -3,12 +3,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>District45 | Login</title>
+    <title>District45 Login</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="content">
-        <h1>Welcome to District45!</h1>
+    <div class="login-container">
+        <img src="logo.png" alt="Logo" class="logo">
+        <h2>Welcome to District45!</h2>
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Log In</button>
+        <p id="error" class="error-text"></p>
     </div>
+    <script type="module" src="firebase-config.js"></script>
 </body>
 </html>
