@@ -2,101 +2,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Book Appointment</title>
+    <meta charset="UTF-8">
+    <title>District45 | Calendar</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h2>Select a Date</h2>
-  <input type="date" id="datePicker"><br><br>
-
-  <h3>Available Time Slots</h3>
-  <div id="timeSlots"></div>
-  <br>
-  <select id="service">
-    <option value="Regular Haircut + Beard">Regular Haircut + Beard</option>
-    <option value="Regular Haircut">Regular Haircut</option>
-    <option value="Beard Trim">Beard Trim</option>
-    <option value="Emergency Cut">Emergency Cut</option>
-  </select>
-  <br><br>
-  <button onclick="book()">Book Appointment</button>
-  <p id="status"></p>
-
-  <script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js';
-    import { getFirestore, collection, addDoc, query, where, getDocs } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js';
-    import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js';
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyDOmhHpvoffYO4NrG2PMAIX_GAICmtgCX0",
-      authDomain: "district45-de4ec.firebaseapp.com",
-      projectId: "district45-de4ec",
-      storageBucket: "district45-de4ec.firebasestorage.app",
-      messagingSenderId: "593842934683",
-      appId: "1:593842934683:web:aeceeb1bea68eb9b27873e",
-      measurementId: "G-W7Z1LHHYZN"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const auth = getAuth(app);
-
-    const timeSlotsDiv = document.getElementById('timeSlots');
-    const datePicker = document.getElementById('datePicker');
-    const status = document.getElementById('status');
-
-    const slots = [
-      "08:00", "09:00", "10:00", "11:00", "12:00",
-      "13:00", "14:00", "15:00", "16:00", "17:00",
-      "18:00", "19:00", "20:00", "21:00"
-    ];
-
-    datePicker.addEventListener('change', async () => {
-      const date = datePicker.value;
-      timeSlotsDiv.innerHTML = '';
-      const q = query(collection(db, "bookings"), where("date", "==", date));
-      const querySnapshot = await getDocs(q);
-      const bookedSlots = querySnapshot.docs.map(doc => doc.data().time);
-
-      slots.forEach(slot => {
-        const btn = document.createElement('button');
-        btn.textContent = slot;
-        btn.disabled = bookedSlots.includes(slot);
-        btn.onclick = () => {
-          document.querySelectorAll('#timeSlots button').forEach(b => b.style.background = '');
-          btn.style.background = '#b2f7b2';
-          btn.dataset.selected = "true";
-        };
-        timeSlotsDiv.appendChild(btn);
-      });
-    });
-
-    async function book() {
-      const date = datePicker.value;
-      const time = [...document.querySelectorAll('#timeSlots button')].find(b => b.style.background)?.textContent;
-      const service = document.getElementById('service').value;
-
-      if (!date || !time) {
-        status.textContent = "Please select a date and time.";
-        return;
-      }
-
-      onAuthStateChanged(auth, async (user) => {
-        if (user) {
-          await addDoc(collection(db, "bookings"), {
-            user: user.email,
-            date: date,
-            time: time,
-            service: service,
-            createdAt: new Date()
-          });
-          status.textContent = "Appointment booked successfully!";
-        } else {
-          status.textContent = "Please log in first.";
-        }
-      });
-    }
-  </script>
+    <div class="content">
+        <h1>Your Calendar</h1>
+    </div>
 </body>
 </html>
