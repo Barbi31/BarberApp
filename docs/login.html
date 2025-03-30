@@ -1,50 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Login - District45</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>District45 Login</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <img src="logo.png" alt="District45 Logo" class="logo">
-    <h2>Login to District45</h2>
+    <img src="logo.png" alt="District45 Logo" class="logo" />
+    <h1>Welcome to District45</h1>
 
-    <input type="email" id="email" placeholder="Email" />
-    <input type="password" id="password" placeholder="Password" />
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <input type="tel" id="phone" placeholder="Phone number" required />
+
     <button onclick="login()">Log In</button>
-    <p id="error" style="color:red;"></p>
+    <p id="error-message" class="error-text"></p>
   </div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyDOmhHpvoffYO4NrG2PMAIX_GAICmtgCX0",
-      authDomain: "district45-de4ec.firebaseapp.com",
-      projectId: "district45-de4ec",
-      storageBucket: "district45-de4ec.appspot.com",
-      messagingSenderId: "593842934683",
-      appId: "1:593842934683:web:aeceeb1bea68eb9b27873e",
-      measurementId: "G-W7Z1LHHYZN"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    window.login = function () {
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-
-      signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
-          window.location.href = "barbers.html";
-        })
-        .catch((error) => {
-          document.getElementById('error').innerText = "Login failed: " + error.message;
-        });
-    };
-  </script>
+  <script type="module" src="firebase-config.js"></script>
+  <script type="module" src="login.js"></script>
 </body>
 </html>
