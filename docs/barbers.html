@@ -1,14 +1,65 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>District45 | Barbers</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Barbers</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .barbers {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 40px 20px;
+    }
+
+    .barber-card {
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      width: 250px;
+      color: white;
+    }
+
+    .barber-card img {
+      width: 100%;
+      border-radius: 8px;
+      height: 300px;
+      object-fit: cover;
+    }
+
+    .barber-card h3 {
+      margin-top: 15px;
+      font-size: 20px;
+    }
+  </style>
 </head>
 <body>
-    <div class="content">
-        <h1>Meet Our Barbers</h1>
+  <h1 style="text-align:center; color:white;">Our Barbers</h1>
+  <div class="barbers">
+
+    <div class="barber-card">
+      <img src="barber1.jpg" alt="Bogya Norbert" />
+      <h3>Bogya Norbert</h3>
     </div>
+
+    <div class="barber-card">
+      <img src="barber2.jpg" alt="Lakó Levente" />
+      <h3>Lakó Levente</h3>
+    </div>
+
+    <div class="barber-card">
+      <img src="barber3.jpg" alt="Fülöp Szilárd" />
+      <h3>Fülöp Szilárd</h3>
+    </div>
+
+    <div class="barber-card">
+      <img src="barber4.jpg" alt="Dovko Isti" />
+      <h3>Dovko Isti</h3>
+    </div>
+
+  </div>
 </body>
 </html>
