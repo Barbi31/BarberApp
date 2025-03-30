@@ -4,38 +4,41 @@ body {
   font-family: Arial, sans-serif;
   background: url('background.jpg') no-repeat center center fixed;
   background-size: cover;
+  color: #ffffff;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
   height: 100vh;
 }
 
 .container {
-  text-align: center;
-  background-color: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.6);
   padding: 30px;
-  border-radius: 10px;
+  border-radius: 12px;
+  text-align: center;
   width: 90%;
   max-width: 350px;
 }
 
 .logo {
-  width: 100px;
+  max-width: 150px;
   margin-bottom: 20px;
 }
 
-h1 {
+h1, h2 {
   color: white;
   margin-bottom: 20px;
 }
 
 input, button {
-  width: 90%;
-  padding: 10px;
+  padding: 12px;
   margin: 10px 0;
   border-radius: 5px;
   border: none;
   font-size: 16px;
+  width: 90%;
+  max-width: 280px;
 }
 
 button {
@@ -48,3 +51,4 @@ button {
 .error-text {
   color: red;
   font-size: 14px;
+}
