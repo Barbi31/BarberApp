@@ -31,3 +31,40 @@ window.login = function () {
       errorElement.textContent = "Login failed: " + err.message;
     });
 };
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+
+// Firestore inicializálás
+const db = getFirestore(app);
+
+// Foglalás mentése
+window.bookAppointment = async function () {
+  const email = auth.currentUser?.email || "Anonymous";
+  const serviceSelect = document.getElementById("service");
+  const duration = parseInt(serviceSelect.value);
+  const serviceName = serviceSelect.options[serviceSelect.selectedIndex].text;
+  const date = document.getElementById("date").value;
+  const time = document.getElementById("time").value;
+  const phone = document.getElementById("phone").value;
+  const error = document.getElementById("error");
+
+  if (!date || !time || !duration || !phone) {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  try {
+    await addDoc(collection(db, "appointments"), {
+      email,
+      phone,
+      date,
+      time,
+      duration,
+      serviceName,
+      createdAt: new Date()
+    });
+    alert("Appointment booked successfully!");
+  } catch (err) {
+    console.error("Error adding document:", err);
+    alert("Something went wrong.");
+  }
+};
