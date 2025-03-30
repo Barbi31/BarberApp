@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booking Summary</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .summary-box {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: left;
+      color: white;
+    }
+
+    .summary-box p {
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    .confirm-btn {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Booking Summary</h1>
+    <div class="summary-box" id="summary"></div>
+    <button class="confirm-btn" onclick="finalizeBooking()">Confirm Booking</button>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+    // Firebase config - ezt cseréld ki a sajátodra, ha még nem tetted meg
+    const firebaseConfig = {
+      apiKey: "AIzaSyDOmhHpvoffYO4NrG2PMAIX_GAICmtgCX0",
+      authDomain: "district45-de4ec.firebaseapp.com",
+      projectId: "district45-de4ec",
+      storageBucket: "district45-de4ec.appspot.com",
+      messagingSenderId: "593842934683",
+      appId: "1:593842934683:web:aeceeb1bea68eb9b27873e",
+      measurementId: "G-W7Z1LHHYZN"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const appointment = JSON.parse(localStorage.getItem("appointment"));
+    const service = JSON.parse(localStorage.getItem("selectedService"));
+    const phone = localStorage.getItem("userPhone");
+
+    const summaryBox = document.getElementById("summary");
+    summaryBox.innerHTML = `
+      <p><strong>Barber:</strong> ${appointment.barber}</p>
+      <p><strong>Service:</strong> ${service.name} (${service.duration} min, ${service.price} RON)</p>
+      <p><strong>Date:</strong> ${appointment.date}</p>
+      <p><strong>Time:</strong> ${appointment.time}</p>
+      ${phone ? <p><strong>Phone:</strong> ${phone}</p> : ""}
+    `;
+
+    window.finalizeBooking = async function () {
+      try {
+        await addDoc(collection(db, "appointments"), {
+          barber: appointment.barber,
+          service: service.name,
+          duration: service.duration,
+          price: service.price,
+          date: appointment.date,
+          time: appointment.time,
+          phone: phone || "not provided",
+          createdAt: new Date().toISOString()
+        });
+
+        alert("Booking successfully saved!");
+        localStorage.clear();
+        window.location.href = "book.html";
+      } catch (e) {
+        alert("Failed to save booking: " + e.message);
+      }
+    };
+  </script>
+</body>
+</html>
