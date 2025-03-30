@@ -21,7 +21,7 @@ window.login = async function () {
     });
 
     // Átirányítás
-    window.location.href = "booknow.html";
+    window.location.href = "book.html";
   } catch (error) {
     document.getElementById("error-message").textContent = "Login failed: " + error.message;
   }
