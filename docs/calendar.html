@@ -3,86 +3,109 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Book an Appointment</title>
+  <title>Select Date & Time</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    .calendar-container {
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 30px;
-      border-radius: 10px;
-      color: white;
-      max-width: 400px;
-      margin: 50px auto;
-      text-align: center;
+    .time-slots {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
     }
 
-    input, select, button {
-      width: 90%;
-      padding: 10px;
-      margin: 10px 0;
-      border: none;
+    .time-slot {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 10px 20px;
       border-radius: 5px;
+      cursor: pointer;
+      color: white;
     }
 
-    button {
+    .time-slot:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .selected {
       background-color: white;
       color: black;
-      font-weight: bold;
-      cursor: pointer;
+    }
+
+    input[type="date"] {
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      font-size: 16px;
+      border: none;
+    }
+
+    .confirm-btn {
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <div class="calendar-container">
-    <h2>Select Date, Time & Service</h2>
+  <div class="container">
+    <h1>Select a Date & Time</h1>
+    <input type="date" id="appointment-date" onchange="generateTimeSlots()" />
 
-    <label for="service">Service:</label><br>
-    <select id="service">
-      <option value="">-- Select Service --</option>
-      <option value="60">Regular Haircut + Beard (60 min)</option>
-      <option value="40">Regular Haircut (40 min)</option>
-      <option value="20">Beard Trim (20 min)</option>
-      <option value="60">Emergency Cut (60 min)</option>
-    </select><br>
+    <div class="time-slots" id="time-slots"></div>
 
-    <label for="date">Choose a day:</label><br>
-    <input type="date" id="date" name="date"><br>
-
-    <label for="time">Choose time:</label><br>
-    <select id="time">
-      <option value="">-- Select Time --</option>
-      <option>08:00</option>
-      <option>08:30</option>
-      <option>09:00</option>
-      <option>09:30</option>
-      <option>10:00</option>
-      <option>10:30</option>
-      <option>11:00</option>
-      <option>11:30</option>
-      <option>12:00</option>
-      <option>12:30</option>
-      <option>13:00</option>
-      <option>13:30</option>
-      <option>14:00</option>
-      <option>14:30</option>
-      <option>15:00</option>
-      <option>15:30</option>
-      <option>16:00</option>
-      <option>16:30</option>
-      <option>17:00</option>
-      <option>17:30</option>
-      <option>18:00</option>
-      <option>18:30</option>
-      <option>19:00</option>
-      <option>19:30</option>
-      <option>20:00</option>
-      <option>20:30</option>
-      <option>21:00</option>
-    </select><br>
-  <label for="phone">Phone Number:</label><br>
-    <input type="tel" id="phone" placeholder="+40 123 456 789"><br>
-
-    <button onclick="bookAppointment()">Book Appointment</button>
+    <button class="confirm-btn" onclick="confirmBooking()">Confirm Booking</button>
   </div>
+
+  <script>
+    const openingHour = 8;   // 08:00
+    const closingHour = 22;  // 22:00
+
+    const service = JSON.parse(localStorage.getItem("selectedService"));
+    const duration = service ? service.duration : 40;
+
+    let selectedTime = "";
+
+    function generateTimeSlots() {
+      const container = document.getElementById("time-slots");
+      container.innerHTML = "";
+
+      const dateInput = document.getElementById("appointment-date");
+      if (!dateInput.value) return;
+
+      for (let hour = openingHour; hour < closingHour; ) {
+        const time = ${String(hour).padStart(2, '0')}:00;
+        const button = document.createElement("div");
+        button.className = "time-slot";
+        button.textContent = time;
+
+        button.onclick = function () {
+          document.querySelectorAll('.time-slot').forEach(el => el.classList.remove('selected'));
+          button.classList.add('selected');
+          selectedTime = time;
+        };
+
+        container.appendChild(button);
+        hour += duration / 60;
+      }
+    }
+
+    function confirmBooking() {
+      const date = document.getElementById("appointment-date").value;
+      if (!date || !selectedTime) {
+        alert("Please select a date and time!");
+        return;
+      }
+
+      const appointment = {
+        date,
+        time: selectedTime,
+        barber: localStorage.getItem("selectedBarber"),
+        service: service?.name || "Unknown",
+        duration: duration
+      };
+
+      localStorage.setItem("appointment", JSON.stringify(appointment));
+      alert("Appointment booked successfully!");
+      // később átirányítás pl. admin oldalra vagy összegzéshez
+    }
+  </script>
 </body>
 </html>
