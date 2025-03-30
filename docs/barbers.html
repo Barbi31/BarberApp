@@ -2,64 +2,78 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Our Barbers</title>
+  <title>Select Your Barber</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    .barbers {
+    .barber-grid {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 30px;
-      padding: 40px 20px;
+      gap: 20px;
+      margin-top: 20px;
     }
 
     .barber-card {
-      background-color: rgba(0, 0, 0, 0.6);
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 15px;
       border-radius: 10px;
-      padding: 20px;
       text-align: center;
-      width: 250px;
-      color: white;
+      width: 160px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .barber-card:hover {
+      transform: scale(1.05);
     }
 
     .barber-card img {
       width: 100%;
       border-radius: 8px;
-      height: 300px;
+      height: 200px;
       object-fit: cover;
     }
 
-    .barber-card h3 {
-      margin-top: 15px;
-      font-size: 20px;
+    .barber-card p {
+      margin-top: 10px;
+      font-weight: bold;
+      color: white;
     }
   </style>
 </head>
 <body>
-  <h1 style="text-align:center; color:white;">Our Barbers</h1>
-  <div class="barbers">
+  <div class="container">
+    <h1>Select Your Barber</h1>
+    <div class="barber-grid">
 
-    <div class="barber-card">
-      <img src="barber1.jpg" alt="Bogya Norbert" />
-      <h3>Bogya Norbert</h3>
+      <div class="barber-card" onclick="selectBarber('Bogya Norbert')">
+        <img src="barber1.jpg" alt="Bogya Norbert" />
+        <p>Bogya Norbert</p>
+      </div>
+
+      <div class="barber-card" onclick="selectBarber('Lakó Levente')">
+        <img src="barber2.jpg" alt="Lakó Levente" />
+        <p>Lakó Levente</p>
+      </div>
+
+      <div class="barber-card" onclick="selectBarber('Fülöp Szilárd')">
+        <img src="barber3.jpg" alt="Fülöp Szilárd" />
+        <p>Fülöp Szilárd</p>
+      </div>
+
+      <div class="barber-card" onclick="selectBarber('Dovko Isti')">
+        <img src="barber4.jpg" alt="Dovko Isti" />
+        <p>Dovko Isti</p>
+      </div>
+
     </div>
-
-    <div class="barber-card">
-      <img src="barber2.jpg" alt="Lakó Levente" />
-      <h3>Lakó Levente</h3>
-    </div>
-
-    <div class="barber-card">
-      <img src="barber3.jpg" alt="Fülöp Szilárd" />
-      <h3>Fülöp Szilárd</h3>
-    </div>
-
-    <div class="barber-card">
-      <img src="barber4.jpg" alt="Dovko Isti" />
-      <h3>Dovko Isti</h3>
-    </div>
-
   </div>
+
+  <script>
+    function selectBarber(name) {
+      localStorage.setItem("selectedBarber", name);
+      window.location.href = "services.html";
+    }
+  </script>
 </body>
 </html>
