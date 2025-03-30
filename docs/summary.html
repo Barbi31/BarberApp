@@ -31,12 +31,12 @@
     <button class="confirm-btn" onclick="finalizeBooking()">Confirm Booking</button>
   </div>
 
-  <!-- Firebase SDK -->
+  <!-- Firebase SDK és adat mentés -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
     import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
-    // Firebase config - ezt cseréld ki a sajátodra, ha még nem tetted meg
+    // Saját Firebase configod
     const firebaseConfig = {
       apiKey: "AIzaSyDOmhHpvoffYO4NrG2PMAIX_GAICmtgCX0",
       authDomain: "district45-de4ec.firebaseapp.com",
@@ -50,11 +50,13 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
+    // Adatok beolvasása a localStorage-ből
     const appointment = JSON.parse(localStorage.getItem("appointment"));
     const service = JSON.parse(localStorage.getItem("selectedService"));
     const phone = localStorage.getItem("userPhone");
-
     const summaryBox = document.getElementById("summary");
+
+    // Összefoglalás megjelenítése
     summaryBox.innerHTML = `
       <p><strong>Barber:</strong> ${appointment.barber}</p>
       <p><strong>Service:</strong> ${service.name} (${service.duration} min, ${service.price} RON)</p>
@@ -63,6 +65,7 @@
       ${phone ? <p><strong>Phone:</strong> ${phone}</p> : ""}
     `;
 
+    // Foglalás mentése Firestore-ba
     window.finalizeBooking = async function () {
       try {
         await addDoc(collection(db, "appointments"), {
@@ -76,11 +79,11 @@
           createdAt: new Date().toISOString()
         });
 
-        alert("Booking successfully saved!");
+        alert("Booking saved successfully!");
         localStorage.clear();
         window.location.href = "book.html";
       } catch (e) {
-        alert("Failed to save booking: " + e.message);
+        alert("Booking failed: " + e.message);
       }
     };
   </script>
