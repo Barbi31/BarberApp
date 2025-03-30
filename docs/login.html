@@ -1,34 +1,50 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>District45 Login</title>
+  <meta charset="UTF-8">
+  <title>Login - District45</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h2>Login to District45</h2>
-  <input type="email" id="email" placeholder="Email"><br>
-  <input type="password" id="password" placeholder="Password"><br>
-  <button onclick="login()">Log In</button>
-  <p id="error" style="color:red;"></p>
+  <div class="container">
+    <img src="logo.png" alt="District45 Logo" class="logo">
+    <h2>Login to District45</h2>
+
+    <input type="email" id="email" placeholder="Email" />
+    <input type="password" id="password" placeholder="Password" />
+    <button onclick="login()">Log In</button>
+    <p id="error" style="color:red;"></p>
+  </div>
 
   <script type="module">
-    import { auth, signInWithEmailAndPassword } from './firebase-config.js';
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
 
-    const login = () => {
+    const firebaseConfig = {
+      apiKey: "AIzaSyDOmhHpvoffYO4NrG2PMAIX_GAICmtgCX0",
+      authDomain: "district45-de4ec.firebaseapp.com",
+      projectId: "district45-de4ec",
+      storageBucket: "district45-de4ec.appspot.com",
+      messagingSenderId: "593842934683",
+      appId: "1:593842934683:web:aeceeb1bea68eb9b27873e",
+      measurementId: "G-W7Z1LHHYZN"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    window.login = function () {
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
+
       signInWithEmailAndPassword(auth, email, password)
-        .then(userCredential => {
-          // Successful login
-          window.location.href = 'book.html';
+        .then(() => {
+          window.location.href = "barbers.html";
         })
-        .catch(error => {
-          document.getElementById('error').innerText = error.message;
+        .catch((error) => {
+          document.getElementById('error').innerText = "Login failed: " + error.message;
         });
     };
-    window.login = login;
   </script>
 </body>
 </html>
