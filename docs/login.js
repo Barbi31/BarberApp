@@ -1,5 +1,5 @@
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
-import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+mport { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+import { getFirestore, setDoc, doc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import { app } from './firebase-config.js';
 
 const auth = getAuth(app);
@@ -12,20 +12,39 @@ window.login = async function () {
   const errorElement = document.getElementById("error-message");
 
   try {
-    // Bejelentkezés a Firebase Auth használatával
+    // Próbálj meg bejelentkezni
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    // Telefonszám és email mentése a Firestore-ba
+    // Telefonszám mentése a Firestore-ba, ha a felhasználó már létezik
     await setDoc(doc(db, "users", user.uid), {
       phone: phone,      // Telefonszám mentése
       email: email       // Email mentése
     });
 
-    // Ha a bejelentkezés sikeres, átirányítás a foglalás oldalra
+    // Ha sikeres, átirányítás a foglalás oldalra
     window.location.href = "book.html";
   } catch (error) {
-    // Hibaüzenet megjelenítése
-    errorElement.textContent = "Login failed: " + error.message;
+    // Ha nem létezik ilyen felhasználó, próbáljuk meg regisztrálni
+    if (error.code === 'auth/user-not-found') {
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // A regisztrált felhasználó telefonszámának mentése
+        await setDoc(doc(db, "users", user.uid), {
+          phone: phone,
+          email: email
+        });
+
+        // Sikeres regisztráció után átirányítás
+        window.location.href = "book.html";
+      } catch (err) {
+        errorElement.textContent = "Registration failed: " + err.message;
+      }
+    } else {
+      // Más hiba esetén hibaüzenet megjelenítése
+      errorElement.textContent = "Login failed: " + error.message;
+    }
   }
 };
