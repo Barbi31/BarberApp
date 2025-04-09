@@ -2,110 +2,81 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Select Date & Time</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calendar</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    .time-slots {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    .time-slot {
-      background-color: rgba(255, 255, 255, 0.1);
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      color: white;
-    }
-
-    .time-slot:hover {
-      background-color: rgba(255, 255, 255, 0.3);
-    }
-
-    .selected {
-      background-color: white;
-      color: black;
-    }
-
-    input[type="date"] {
-      padding: 10px;
-      margin-top: 10px;
-      border-radius: 5px;
-      font-size: 16px;
-      border: none;
-    }
-
-    .confirm-btn {
-      margin-top: 20px;
-    }
-  </style>
+  <link rel="stylesheet" href="calendar.css" />
 </head>
 <body>
   <div class="container">
-    <h1>Select a Date & Time</h1>
-    <input type="date" id="appointment-date" onchange="generateTimeSlots()" />
+    <h1>Select Appointment Date & Time</h1>
+    
+    <!-- Naptár -->
+    <div id="calendar">
+      <div id="calendar-days"></div>
+    </div>
 
-    <div class="time-slots" id="time-slots"></div>
+    <div class="appointment-details">
+      <label for="time">Choose Time:</label>
+      <input type="time" id="time" required />
 
-    <button class="confirm-btn" onclick="confirmBooking()">Confirm Booking</button>
+      <button onclick="saveAppointment()">Save Appointment</button>
+    </div>
   </div>
 
   <script>
-    const openingHour = 8;   // 08:00
-    const closingHour = 22;  // 22:00
+    // Inicializáljuk a naptárat
+    function generateCalendar() {
+      const calendarDaysContainer = document.getElementById('calendar-days');
+      const today = new Date();
+      const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
 
-    const service = JSON.parse(localStorage.getItem("selectedService"));
-    const duration = service ? service.duration : 40;
+      // Töröljük a meglévő napokat, ha voltak
+      calendarDaysContainer.innerHTML = '';
 
-    let selectedTime = "";
-
-    function generateTimeSlots() {
-      const container = document.getElementById("time-slots");
-      container.innerHTML = "";
-
-      const dateInput = document.getElementById("appointment-date");
-      if (!dateInput.value) return;
-
-      for (let hour = openingHour; hour < closingHour; ) {
-        const time = ${String(hour).padStart(2, '0')}:00;
-        const button = document.createElement("div");
-        button.className = "time-slot";
-        button.textContent = time;
-
-        button.onclick = function () {
-          document.querySelectorAll('.time-slot').forEach(el => el.classList.remove('selected'));
-          button.classList.add('selected');
-          selectedTime = time;
+      // Generáljuk a napokat
+      for (let i = 1; i <= daysInMonth; i++) {
+        const dayDiv = document.createElement('div');
+        dayDiv.classList.add('calendar-day');
+        dayDiv.textContent = i;
+        dayDiv.onclick = function() {
+          selectDay(i);
         };
-
-        container.appendChild(button);
-        hour += duration / 60;
+        calendarDaysContainer.appendChild(dayDiv);
       }
     }
 
-    function confirmBooking() {
-      const date = document.getElementById("appointment-date").value;
-      if (!date || !selectedTime) {
-        alert("Please select a date and time!");
+    // Kiválasztott nap mentése
+    function selectDay(day) {
+      localStorage.setItem('selectedDay', day);
+      alert(You selected: ${day});
+    }
+
+    // Foglalás mentése
+    function saveAppointment() {
+      const day = localStorage.getItem('selectedDay');
+      const time = document.getElementById("time").value;
+
+      if (!day || !time) {
+        alert("Please select a day and time!");
         return;
       }
 
       const appointment = {
-        date,
-        time: selectedTime,
-        barber: localStorage.getItem("selectedBarber"),
-        service: service?.name || "Unknown",
-        duration: duration
+        day: day,
+        time: time,
+        barber: localStorage.getItem('selectedBarber'),
+        service: JSON.parse(localStorage.getItem('selectedService'))
       };
 
       localStorage.setItem("appointment", JSON.stringify(appointment));
-      alert("Appointment booked successfully!");
-      // később átirányítás pl. admin oldalra vagy összegzéshez
+
+      alert("Appointment saved!");
+      window.location.href = "summary.html";
     }
+
+    // Naptár generálás, amikor az oldal betöltődik
+    window.onload = generateCalendar;
   </script>
 </body>
 </html>
