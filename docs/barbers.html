@@ -10,7 +10,7 @@
   <div class="container">
     <h1>Select Your Barber</h1>
     
-    <!-- Fodrászok kiválasztása sorba -->
+    <!-- Fodrászok swipe-lista -->
     <div class="barber-list">
       <div class="barber" onclick="selectBarber('Bogya Norbert', this)">
         <img src="barber1.jpg" alt="Bogya Norbert" />
@@ -29,14 +29,12 @@
         <p>Dovko Isti</p>
       </div>
     </div>
-    
-    <!-- A kiválasztott fodrász megjelenítése -->
+
     <div id="selected-barber">
       <p>Choose a barber to continue</p>
     </div>
 
-    <!-- Következő gomb -->
-    <button onclick="proceedToBooking()" id="next-btn" disabled>Proceed to Booking</button>
+    <button id="next-btn" onclick="proceedToBooking()" disabled>Proceed to Booking</button>
   </div>
 
   <script type="module" src="barbers.js"></script>
