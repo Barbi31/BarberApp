@@ -3,51 +3,42 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Barber Selection</title>
-  <link rel="stylesheet" href="barbers.css" />
+  <title>Choose Your Barber</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
     <h1>Select Your Barber</h1>
+    
+    <!-- Fodrászok kiválasztása sorba -->
     <div class="barber-list">
-      <div class="barber">
-        <img src="barber1.jpg" alt="Bogya Norbert" class="barber-img" />
-        <p class="barber-name">Bogya Norbert</p>
-        <button class="select-btn" onclick="selectBarber('Bogya Norbert')">Select</button>
+      <div class="barber" onclick="selectBarber('Bogya Norbert', this)">
+        <img src="barber1.jpg" alt="Bogya Norbert" />
+        <p>Bogya Norbert</p>
       </div>
-      <div class="barber">
-        <img src="barber2.jpg" alt="Lakó Levente" class="barber-img" />
-        <p class="barber-name">Lakó Levente</p>
-        <button class="select-btn" onclick="selectBarber('Lakó Levente')">Select</button>
+      <div class="barber" onclick="selectBarber('Lakó Levente', this)">
+        <img src="barber2.jpg" alt="Lakó Levente" />
+        <p>Lakó Levente</p>
       </div>
-      <div class="barber">
-        <img src="barber3.jpg" alt="Fülöp Szilárd" class="barber-img" />
-        <p class="barber-name">Fülöp Szilárd</p>
-        <button class="select-btn" onclick="selectBarber('Fülöp Szilárd')">Select</button>
+      <div class="barber" onclick="selectBarber('Fülöp Szilárd', this)">
+        <img src="barber3.jpg" alt="Fülöp Szilárd" />
+        <p>Fülöp Szilárd</p>
       </div>
-      <div class="barber">
-        <img src="barber4.jpg" alt="Dovko Isti" class="barber-img" />
-        <p class="barber-name">Dovko Isti</p>
-        <button class="select-btn" onclick="selectBarber('Dovko Isti')">Select</button>
+      <div class="barber" onclick="selectBarber('Dovko Isti', this)">
+        <img src="barber4.jpg" alt="Dovko Isti" />
+        <p>Dovko Isti</p>
       </div>
     </div>
-    <button onclick="goToService()">Next</button>
+    
+    <!-- A kiválasztott fodrász megjelenítése -->
+    <div id="selected-barber">
+      <p>Choose a barber to continue</p>
+    </div>
+
+    <!-- Következő gomb -->
+    <button onclick="proceedToBooking()" id="next-btn" disabled>Proceed to Booking</button>
   </div>
 
-  <script>
-    // Funckió a fodrász kiválasztásához
-    function selectBarber(barber) {
-      localStorage.setItem('selectedBarber', barber); // A kiválasztott fodrász mentése
-    }
-
-    // A következő oldalra navigálás
-    function goToService() {
-      if (!localStorage.getItem('selectedBarber')) {
-        alert("Please select a barber!");
-        return;
-      }
-      window.location.href = 'services.html'; // A következő oldal: szolgáltatás választás
-    }
-  </script>
+  <script type="module" src="barbers.js"></script>
 </body>
 </html>
