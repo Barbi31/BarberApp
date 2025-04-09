@@ -3,48 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Select Service</title>
+  <title>Choose Your Service</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="services.css" />
 </head>
 <body>
   <div class="container">
-    <h1>Select Your Service</h1>
-    <div class="service-list">
-      <div class="service">
-        <h2>Regular Haircut</h2>
-        <p>40 min | 50 RON</p>
-        <button onclick="selectService('Regular Haircut', 40, 50)">Select</button>
-      </div>
-      <div class="service">
-        <h2>Beard Trim</h2>
-        <p>20 min | 30 RON</p>
-        <button onclick="selectService('Beard Trim', 20, 30)">Select</button>
-      </div>
-      <div class="service">
-        <h2>Hot Cut (Emergency)</h2>
-        <p>60 min | 100 RON</p>
-        <button onclick="selectService('Hot Cut (Emergency)', 60, 100)">Select</button>
-      </div>
-    </div>
-    <button onclick="goToCalendar()">Next</button>
+    <h1>Choose a Service</h1>
+    
+    <!-- Fodrász neve itt jelenik meg -->
+    <div id="selected-barber-info"></div>
+    
+    <select id="service-select">
+      <option value="Regular Haircut">Regular Haircut</option>
+      <option value="Beard Trim">Beard Trim</option>
+      <option value="Hot Cut (Emergency)">Hot Cut</option>
+    </select>
+    
+    <button onclick="proceedToTime()">Proceed to Time Selection</button>
   </div>
 
-  <script>
-    // Funckió a szolgáltatás kiválasztásához
-    function selectService(name, duration, price) {
-      const service = { name, duration, price };
-      localStorage.setItem('selectedService', JSON.stringify(service)); // Mentés localStorage-ba
-    }
-
-    // Következő oldalra navigálás
-    function goToCalendar() {
-      if (!localStorage.getItem('selectedService')) {
-        alert("Please select a service!");
-        return;
-      }
-      window.location.href = 'calendar.html'; // A következő oldal: időpont választás
-    }
-  </script>
+  <script type="module" src="services.js"></script>
 </body>
 </html>
