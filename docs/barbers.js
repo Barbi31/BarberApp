@@ -1,4 +1,4 @@
-// Kiválasztott fodrász változó
+/ Kiválasztott fodrász változó
 let selectedBarber = null;
 
 function selectBarber(barberName, element) {
@@ -19,8 +19,9 @@ function selectBarber(barberName, element) {
   document.getElementById("next-btn").disabled = false;
 }
 
+// A következő oldalra navigálás
 function proceedToBooking() {
   // Tároljuk el a kiválasztott fodrászt, és irányítjuk a foglalás oldalra
   localStorage.setItem("selectedBarber", selectedBarber);
-  window.location.href = "services.html";  // Itt lehet tovább navigálni a szolgáltatásokhoz
+  window.location.href = "services.html";  // Tovább a szolgáltatások oldalra
 }
