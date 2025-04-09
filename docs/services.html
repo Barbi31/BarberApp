@@ -2,72 +2,48 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Select Service</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    .service-list {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      margin-top: 20px;
-    }
-
-    .service-card {
-      background-color: rgba(255, 255, 255, 0.1);
-      padding: 15px;
-      border-radius: 10px;
-      text-align: center;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .service-card:hover {
-      background-color: rgba(255, 255, 255, 0.2);
-    }
-
-    .service-card h3 {
-      margin: 0;
-      color: white;
-    }
-
-    .service-card p {
-      margin: 5px 0;
-      color: white;
-    }
-  </style>
+  <link rel="stylesheet" href="services.css" />
 </head>
 <body>
   <div class="container">
-    <h1>Select a Service</h1>
+    <h1>Select Your Service</h1>
     <div class="service-list">
-
-      <div class="service-card" onclick="selectService('Regular Haircut + Beard', 90, 60)">
-        <h3>Regular Haircut + Beard</h3>
-        <p>90 RON • 60 min</p>
+      <div class="service">
+        <h2>Regular Haircut</h2>
+        <p>40 min | 50 RON</p>
+        <button onclick="selectService('Regular Haircut', 40, 50)">Select</button>
       </div>
-
-      <div class="service-card" onclick="selectService('Regular Haircut', 70, 40)">
-        <h3>Regular Haircut</h3>
-        <p>70 RON • 40 min</p>
+      <div class="service">
+        <h2>Beard Trim</h2>
+        <p>20 min | 30 RON</p>
+        <button onclick="selectService('Beard Trim', 20, 30)">Select</button>
       </div>
-
-      <div class="service-card" onclick="selectService('Beard Trim', 50, 20)">
-        <h3>Beard Trim</h3>
-        <p>50 RON • 20 min</p>
+      <div class="service">
+        <h2>Hot Cut (Emergency)</h2>
+        <p>60 min | 100 RON</p>
+        <button onclick="selectService('Hot Cut (Emergency)', 60, 100)">Select</button>
       </div>
-
-      <div class="service-card" onclick="selectService('Emergency Cut', 120, 60)">
-        <h3>Emergency Cut</h3>
-        <p>120 RON • 60 min</p>
-      </div>
-
     </div>
+    <button onclick="goToCalendar()">Next</button>
   </div>
 
   <script>
-    function selectService(name, price, duration) {
-      localStorage.setItem("selectedService", JSON.stringify({ name, price, duration }));
-      window.location.href = "calendar.html";
+    // Funckió a szolgáltatás kiválasztásához
+    function selectService(name, duration, price) {
+      const service = { name, duration, price };
+      localStorage.setItem('selectedService', JSON.stringify(service)); // Mentés localStorage-ba
+    }
+
+    // Következő oldalra navigálás
+    function goToCalendar() {
+      if (!localStorage.getItem('selectedService')) {
+        alert("Please select a service!");
+        return;
+      }
+      window.location.href = 'calendar.html'; // A következő oldal: időpont választás
     }
   </script>
 </body>
