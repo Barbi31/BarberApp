@@ -3,73 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Book Appointment</title>
+  <title>Book Now</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="book.css" />
 </head>
 <body>
   <div class="container">
-    <h1>Book Your Appointment</h1>
-    <div class="appointment-details">
-      <p><strong>Selected Barber:</strong> <span id="barber-name"></span></p>
-      <p><strong>Service:</strong> <span id="service-name"></span></p>
-      <p><strong>Price:</strong> <span id="service-price"></span> RON</p>
-      <p><strong>Duration:</strong> <span id="service-duration"></span> minutes</p>
-
-      <label for="date">Choose Date:</label>
-      <input type="date" id="date" required />
-
-      <label for="time">Choose Time:</label>
-      <input type="time" id="time" required />
-
-      <label for="phone">Phone Number:</label>
-      <input type="tel" id="phone" placeholder="Enter your phone number" required />
-
-      <button onclick="bookAppointment()">Book Appointment</button>
-    </div>
+    <img src="logo.png" alt="District45 Logo" class="logo" />
+    <h1>Welcome to District45</h1>
+    <button class="book-now" onclick="window.location.href = 'barbers.html'">Book Now</button>
   </div>
 
-  <script>
-    // Load the selected barber and service from localStorage
-    const barber = localStorage.getItem('selectedBarber');
-    const service = JSON.parse(localStorage.getItem('selectedService'));
-
-    if (barber && service) {
-      document.getElementById('barber-name').textContent = barber;
-      document.getElementById('service-name').textContent = service.name;
-      document.getElementById('service-price').textContent = service.price;
-      document.getElementById('service-duration').textContent = service.duration;
-    } else {
-      alert("Please select a barber and service first.");
-      window.location.href = "barbers.html";
-    }
-
-    // Booking function
-    function bookAppointment() {
-      const date = document.getElementById("date").value;
-      const time = document.getElementById("time").value;
-      const phone = document.getElementById("phone").value;
-
-      if (!date || !time || !phone) {
-        alert("Please fill in all fields!");
-        return;
-      }
-
-      // Store booking details to localStorage
-      const appointment = {
-        barber: barber,
-        service: service.name,
-        price: service.price,
-        date: date,
-        time: time,
-        phone: phone
-      };
-      localStorage.setItem("appointment", JSON.stringify(appointment));
-
-      // Redirect to summary page
-      window.location.href = "summary.html";
-    }
-  </script>
   <script src="book.js"></script>
 </body>
 </html>
+
