@@ -1,8 +1,8 @@
-// Firebase SDK importálása (modulként használva)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
-// A te Firebase-konfigurációd
+// Firebase konfiguráció
 const firebaseConfig = {
   apiKey: "AIzaSyDOmhHpvoffYO4NrG2PMAIX_GAICmtgCX0",
   authDomain: "district45-de4ec.firebaseapp.com",
@@ -16,60 +16,7 @@ const firebaseConfig = {
 // Firebase inicializálás
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-
-// Bejelentkezési függvény
-window.login = function () {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  const errorElement = document.getElementById("error");
-
-  signInWithEmailAndPassword(auth, email, password)
-    .then(() => {
-      window.location.href = "book.html";
-    })
-    .catch((err) => {
-      errorElement.textContent = "Login failed: " + err.message;
-    });
-};
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
-
-// Firestore inicializálás
 const db = getFirestore(app);
 
-// Foglalás mentése
-window.bookAppointment = async function () {
-  const email = auth.currentUser?.email || "Anonymous";
-  const serviceSelect = document.getElementById("service");
-  const duration = parseInt(serviceSelect.value);
-  const serviceName = serviceSelect.options[serviceSelect.selectedIndex].text;
-  const date = document.getElementById("date").value;
-  const time = document.getElementById("time").value;
-  const phone = document.getElementById("phone").value;
-  const error = document.getElementById("error");
-
-  if (!date || !time || !duration || !phone) {
-    alert("Please fill in all fields.");
-    return;
-  }
-
-  try {
-    await addDoc(collection(db, "appointments"), {
-      email,
-      phone,
-      date,
-      time,
-      duration,
-      serviceName,
-      createdAt: new Date()
-    });
-    alert("Appointment booked successfully!");
-  } catch (err) {
-    console.error("Error adding document:", err);
-    alert("Something went wrong.");
-  }
-};
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
-
-export const db = getFirestore(app);
-export { app, db };
+// Exportálás
+export { app, auth, db };
