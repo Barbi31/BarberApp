@@ -18,40 +18,42 @@ body {
   border-radius: 12px;
 }
 
-.barber-list {
+.barber-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow-x: auto;
-  gap: 20px;
+  overflow: hidden;
+  position: relative;
+  width: 80%;
   margin-bottom: 30px;
-  width: 100%;
-  padding: 10px;
 }
 
-.barber {
-  cursor: pointer;
-  text-align: center;
-  border: 2px solid transparent;
+.barber-card {
+  background-color: white;
+  padding: 20px;
   border-radius: 10px;
-  padding: 10px;
-  transition: border 0.3s ease;
+  margin: 0 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transform: scale(0.9);
 }
 
-.barber img {
+.barber-card img {
   width: 120px;
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
 }
 
-.barber p {
-  color: white;
+.barber-card p {
   margin-top: 10px;
 }
 
-.barber.selected {
-  border: 3px solid #4CAF50; /* Kiemelt fodrász szín */
+.barber-card.selected {
+  transform: scale(1.1); /* Kiemelés */
+  border: 3px solid #4CAF50;
 }
 
 button {
