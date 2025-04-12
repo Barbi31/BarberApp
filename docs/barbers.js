@@ -1,27 +1,27 @@
-/ Kiválasztott fodrász változó
 let selectedBarber = null;
 
+// Kiválasztott fodrász kiemelése
 function selectBarber(barberName, element) {
-  // Előzőleg kiválasztott fodrász kiemelése eltávolítással
-  const previousSelected = document.querySelector(".barber.selected");
+  // Előzőleg kiválasztott fodrász eltávolítása
+  const previousSelected = document.querySelector(".barber-card.selected");
   if (previousSelected) {
     previousSelected.classList.remove("selected");
   }
 
-  // Új fodrász kiemelése
+  // Jelenlegi fodrász kiemelése
   element.classList.add("selected");
   selectedBarber = barberName;
-  
-  // Megjelenítjük a kiválasztott fodrász nevét
+
+  // A kiválasztott fodrász nevét kiírjuk
   document.getElementById("selected-barber").innerHTML = <p>You selected: <strong>${barberName}</strong></p>;
 
-  // Következő gomb engedélyezése
+  // A gomb engedélyezése
   document.getElementById("next-btn").disabled = false;
 }
 
-// A következő oldalra navigálás
+// Következő oldalra navigálás
 function proceedToBooking() {
-  // Tároljuk el a kiválasztott fodrászt, és irányítjuk a foglalás oldalra
+  // Tároljuk el a kiválasztott fodrászt, és irányítjuk a következő oldalra
   localStorage.setItem("selectedBarber", selectedBarber);
-  window.location.href = "services.html";  // Tovább a szolgáltatások oldalra
+  window.location.href = "services.html"; // Következő oldal
 }
