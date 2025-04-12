@@ -2,40 +2,43 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Choose Your Barber</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>Select Your Barber</h1>
-    
-    <!-- Fodrászok swipe lista -->
+    <h1>Choose Your Barber</h1>
     <div class="barber-container">
-      <div class="barber-card" id="barber1">
+       <div class="barber-card" onclick="selectBarber('Lakó Levente', this)">
         <img src="barber1.jpg" alt="Bogya Norbert" />
-        <p>Bogya Norbert</p>
+        <h3>Bogya Norbert</h3>
+        <p>Expert Barber</p>
       </div>
-      <div class="barber-card" id="barber2">
+      <div class="barber-card" onclick="selectBarber('Lakó Levente', this)">
         <img src="barber2.jpg" alt="Lakó Levente" />
-        <p>Lakó Levente</p>
+        <h3>Lakó Levente</h3>
+        <p>Expert Barber</p>
       </div>
-      <div class="barber-card" id="barber3">
+      <div class="barber-card" onclick="selectBarber('Fülöp Szilárd', this)">
         <img src="barber3.jpg" alt="Fülöp Szilárd" />
-        <p>Fülöp Szilárd</p>
+        <h3>Fülöp Szilárd</h3>
+        <p>Hair Stylist</p>
       </div>
-      <div class="barber-card" id="barber4">
+      <div class="barber-card" onclick="selectBarber('Dovko Isti', this)">
         <img src="barber4.jpg" alt="Dovko Isti" />
-        <p>Dovko Isti</p>
+        <h3>Dovko Isti</h3>
+        <p>Master Barber</p>
       </div>
-    </div>
-    
-    <div id="selected-barber">
-      <p>Choose a barber to continue</p>
     </div>
 
-    <button id="next-btn" onclick="proceedToBooking()" disabled>Proceed to Booking</button>
+    <div id="barber-selection">
+      <button id="next-btn" onclick="proceedToBooking()" disabled>Proceed to Booking</button>
+    </div>
   </div>
+  
+  <script src="barber.js"></script>
+</body>
+</html>
 
   <script type="module" src="barbers.js"></script>
 </body>
